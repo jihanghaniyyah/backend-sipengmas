@@ -10,8 +10,16 @@ import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/stacked_chart.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/line_chart.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  String searchString = "";
+  TextEditingController searchController = TextEditingController();
 
   Future viewTotalData() async {
     var url = Uri.https(
@@ -180,7 +188,7 @@ class DashboardPage extends StatelessWidget {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(22, 0, 10, 0),
+                            EdgeInsetsDirectional.fromSTEB(22, 0, 10, 0),
                             child: Text(
                               'Filter:',
                               style: TextStyle(
@@ -275,7 +283,7 @@ class DashboardPage extends StatelessWidget {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(22, 0, 10, 0),
+                            EdgeInsetsDirectional.fromSTEB(22, 0, 10, 0),
                             child: Text(
                               'Filter:',
                               style: TextStyle(
@@ -375,37 +383,22 @@ class DashboardPage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(22, 0, 10, 0),
-                            child: Text(
-                              'Show',
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF999999),
-                                fontSize: 12,
-                              ),
-                            ),
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            searchString = value;
+                          });
+                        },
+                        controller: searchController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.search),
+                          hintText: "Masukkan Judul Pengmas",
+                          hintStyle: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-                            //TODO: DropdownMenu
-                          ),
-                          Text(
-                            'entries',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFF999999),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                     FutureBuilder<dynamic>(
@@ -429,14 +422,16 @@ class DashboardPage extends StatelessWidget {
                               shrinkWrap: true,
                               itemCount: snapshot.data.length,
                               itemBuilder: (BuildContext context, index) {
-                                return CustomBar(
+                                return snapshot.data[index]["JUDUL"]
+                                    .contains(searchString)
+                                    ? CustomBar(
                                     event: '${snapshot.data[index]["JUDUL"]}',
                                     name:
-                                        '${snapshot.data[index]["NAMA_PEGAWAI"]}',
+                                    '${snapshot.data[index]["NAMA_PEGAWAI"]}',
                                     major:
-                                        '${snapshot.data[index]["KATEGORI"]}',
+                                    '${snapshot.data[index]["KATEGORI"]}',
                                     pusatriset:
-                                        '${snapshot.data[index]["NAMA"]}',
+                                    '${snapshot.data[index]["NAMA"]}',
                                     // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
                                     onPressed: () {
                                       Navigator.push(
@@ -446,7 +441,8 @@ class DashboardPage extends StatelessWidget {
                                               ReadDataProgramStudiPage(),
                                         ),
                                       );
-                                    });
+                                    })
+                                    : Container();
                               },
                             ),
                           );
@@ -480,3 +476,4 @@ class DashboardPage extends StatelessWidget {
     );
   }
 }
+

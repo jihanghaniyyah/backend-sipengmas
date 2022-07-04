@@ -86,19 +86,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
               ListTile(
                 title: Text(
-                  'Research Group',
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResearchGroupPage(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text(
                   'Research Center',
                 ),
                 onTap: () {
@@ -106,6 +93,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ResearchCenterPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text(
+                  'Research Group',
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResearchGroupPage(),
                     ),
                   );
                 },

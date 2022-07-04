@@ -8,8 +8,16 @@ import 'package:pengabdianmasyarakat/ui/widgets/custom_app_bar.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_card.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
 
-class ResearchGroupPage extends StatelessWidget {
+class ResearchGroupPage extends StatefulWidget {
   const ResearchGroupPage({Key? key}) : super(key: key);
+
+  @override
+  State<ResearchGroupPage> createState() => _ResearchGroupPageState();
+}
+
+class _ResearchGroupPageState extends State<ResearchGroupPage> {
+  String searchString = "";
+  TextEditingController searchController = TextEditingController();
 
   Future viewDataPengmas() async {
     var url = Uri.https(
@@ -71,37 +79,22 @@ class ResearchGroupPage extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      22, 0, 10, 0),
-                                  child: Text(
-                                    'Show',
-                                    style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF999999),
-                                      fontSize: 12,
-                                    ),
-                                  ),
+                            child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  searchString = value;
+                                });
+                              },
+                              controller: searchController,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.search),
+                                hintText: "Masukkan Judul Pengmas",
+                                hintStyle: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 10, 0),
-                                  //TODO: DropdownMenu
-                                ),
-                                Text(
-                                  'entries',
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFF999999),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                           FutureBuilder<dynamic>(
@@ -120,29 +113,34 @@ class ResearchGroupPage extends StatelessWidget {
                               } else {
                                 return Container(
                                   child: ListView.builder(
-                                    physics: const AlwaysScrollableScrollPhysics(),
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (BuildContext context, index) {
-                                      return CustomBar(
-                                          event: '${snapshot.data[index]["JUDUL"]}',
-                                          name:
-                                          '${snapshot.data[index]["NAMA_PEGAWAI"]}',
-                                          major:
-                                          '${snapshot.data[index]["KATEGORI"]}',
-                                          pusatriset:
-                                          '${snapshot.data[index]["NAMA"]}',
-                                          // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => ReadDataProgramStudiPage(),
-                                              ),
-                                            );
-                                          }
-                                      );
+                                      return snapshot.data[index]["JUDUL"]
+                                              .contains(searchString)
+                                          ? CustomBar(
+                                              event:
+                                                  '${snapshot.data[index]["JUDUL"]}',
+                                              name:
+                                                  '${snapshot.data[index]["NAMA_PEGAWAI"]}',
+                                              major:
+                                                  '${snapshot.data[index]["KATEGORI"]}',
+                                              pusatriset:
+                                                  '${snapshot.data[index]["NAMA"]}',
+                                              // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ReadDataProgramStudiPage(),
+                                                  ),
+                                                );
+                                              })
+                                          : Container();
                                     },
                                   ),
                                 );
@@ -153,17 +151,17 @@ class ResearchGroupPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                    child: Text(
-                      'Showing 1 to 10 of 6 entries',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                  //   child: Text(
+                  //     'Showing 1 to 10 of 6 entries',
+                  //     style: TextStyle(
+                  //       fontFamily: 'Poppins',
+                  //       fontSize: 12,
+                  //       fontWeight: FontWeight.w500,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
