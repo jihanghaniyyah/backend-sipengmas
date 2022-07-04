@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pengabdianmasyarakat/shared/theme.dart';
 import 'package:pengabdianmasyarakat/ui/pages/dashboard_page.dart';
 import 'package:pengabdianmasyarakat/ui/pages/pemberitahuan_page.dart';
+import 'package:pengabdianmasyarakat/ui/pages/login_page.dart';
 import 'package:pengabdianmasyarakat/ui/pages/read_data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
 
@@ -31,30 +32,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       actions: [
+        // Padding(
+        //   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+        //   child: InkWell(
+        //     onTap: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => PemberitahuanPage(),
+        //         ),
+        //       );
+        //     },
+        //     child: Icon(
+        //       Icons.notifications,
+        //       color: Colors.white,
+        //       size: 24,
+        //     ),
+        //   ),
+        // ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
           child: InkWell(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PemberitahuanPage(),
+                  builder: (context) => LoginPage(),
                 ),
               );
             },
             child: Icon(
-              Icons.notifications,
-              color: Colors.white,
-              size: 24,
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
-          child: InkWell(
-            onTap: () {},
-            child: Icon(
-              Icons.person,
+              Icons.logout,
               color: Colors.white,
               size: 24,
             ),

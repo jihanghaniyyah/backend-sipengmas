@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert' as convert;
 import 'package:pengabdianmasyarakat/shared/theme.dart';
-import 'package:pengabdianmasyarakat/ui/pages/read_data_researchgroup.dart';
+import 'package:pengabdianmasyarakat/ui/pages/read_data_programstudipage.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_app_bar.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_card.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
 
-class ResearchCenterPage extends StatelessWidget {
-  const ResearchCenterPage({Key? key}) : super(key: key);
+class ResearchGroupPage extends StatelessWidget {
+  const ResearchGroupPage({Key? key}) : super(key: key);
+
+  Future viewDataPengmas() async {
+    var url = Uri.https(
+        'project.mis.pens.ac.id',
+        '/mis116/sipengmas/p3m/datapengmas.php/',
+        {'function': 'showDataPengmasbyRG'});
+    var response = await http.get(url);
+    var jsonData = convert.jsonDecode(response.body);
+    print(jsonData['data']);
+    if (response.statusCode == 200) {
+      return jsonData['data'];
+    } else {
+      print('Gagal');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,90 +104,51 @@ class ResearchCenterPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          CustomBar(
-                              event: 'Pengabdian Masyarakat IT 2021',
-                              name: 'Umi Sa\'adah',
-                              major: 'Teknik Informatika',
-                              date: '2021-12-30',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReadDataResearchGroupPage(),
+                          FutureBuilder<dynamic>(
+                            future: viewDataPengmas(),
+                            builder: (context, snapshot) {
+                              if (snapshot.error != null) {
+                                return Text(
+                                  "${snapshot.error}",
+                                  style: const TextStyle(fontSize: 20),
+                                );
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: const CircularProgressIndicator());
+                              } else {
+                                return Container(
+                                  child: ListView.builder(
+                                    physics: const AlwaysScrollableScrollPhysics(),
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (BuildContext context, index) {
+                                      return CustomBar(
+                                          event: '${snapshot.data[index]["JUDUL"]}',
+                                          name:
+                                          '${snapshot.data[index]["NAMA_PEGAWAI"]}',
+                                          major:
+                                          '${snapshot.data[index]["KATEGORI"]}',
+                                          pusatriset:
+                                          '${snapshot.data[index]["NAMA"]}',
+                                          // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => ReadDataProgramStudiPage(),
+                                              ),
+                                            );
+                                          }
+                                      );
+                                    },
                                   ),
                                 );
-                              }),
-                          CustomBar(
-                              event: 'Pengabdian Masyarakat CE 2021',
-                              name: 'Sritrusta Sukaridhoto',
-                              major: 'Teknik Komputer',
-                              date: '2021-10-30',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReadDataResearchGroupPage(),
-                                  ),
-                                );
-                              }),
-                          CustomBar(
-                              event: 'Pengabdian Masyarakat DS 2021',
-                              name: 'M. Udin Harun Al Rasyid',
-                              major: 'Sains Data',
-                              date: '2021-09-22',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReadDataResearchGroupPage(),
-                                  ),
-                                );
-                              }),
-                          CustomBar(
-                              event: 'Pengabdian Masyarakat Elektro...',
-                              name: 'Idris Winarno',
-                              major: 'Teknik Telekomunikasi',
-                              date: '2021-01-10',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReadDataResearchGroupPage(),
-                                  ),
-                                );
-                              }),
-                          CustomBar(
-                              event: 'Pengabdian Masyarakat Elektro...',
-                              name: 'Andhik Ampuh Yunanto',
-                              major: 'Teknik Elektro Industri',
-                              date: '2021-03-07',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReadDataResearchGroupPage(),
-                                  ),
-                                );
-                              }),
-                          CustomBar(
-                              event: 'Pengabdian Masyarakat Teleko...',
-                              name: 'Wiratmoko Yuwono',
-                              major: 'Teknik Informatika',
-                              date: '2021-12-30',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReadDataResearchGroupPage(),
-                                  ),
-                                );
-                              }),
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),

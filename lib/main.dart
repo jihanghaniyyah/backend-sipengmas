@@ -5,7 +5,7 @@ import 'package:pengabdianmasyarakat/ui/pages/data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchgroup.dart';
 import 'package:pengabdianmasyarakat/ui/pages/login_page.dart';
 import 'package:pengabdianmasyarakat/ui/pages/pemberitahuan_page.dart';
-import 'package:pengabdianmasyarakat/ui/pages/read_data_programstudidetail.dart';
+import 'package:pengabdianmasyarakat/ui/pages/read_data_programstudipage.dart';
 import 'package:pengabdianmasyarakat/ui/pages/read_data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/pages/read_data_researchgroup.dart';
 import 'package:pengabdianmasyarakat/ui/pages/register_page.dart';

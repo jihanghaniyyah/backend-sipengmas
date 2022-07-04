@@ -27,8 +27,7 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: 400,
+      width: double.infinity, height: 1000,
       decoration: BoxDecoration(
         color: Color(0xFFEEEEEE),
         boxShadow: [
@@ -123,7 +122,7 @@ class CustomContainer extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: double.infinity,
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
