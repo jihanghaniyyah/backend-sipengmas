@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert' as convert;
 import 'package:pengabdianmasyarakat/shared/theme.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_app_bar.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_button_2.dart';
 
-class ReadDataProgramStudiPage extends StatelessWidget {
-  const ReadDataProgramStudiPage({Key? key}) : super(key: key);
+class ReadDataProgramStudiPage extends StatefulWidget {
+  // final String id_pengmas;
+  // const ReadDataProgramStudiPage({Key? key, required this.id_pengmas}) : super(key: key);
+
+  @override
+  State<ReadDataProgramStudiPage> createState() => _ReadDataProgramStudiPageState();
+}
+
+class _ReadDataProgramStudiPageState extends State<ReadDataProgramStudiPage> {
+  Future viewDetail() async {
+    // try{
+    //   String idpeng = widget.id_pengmas;
+    //   print(idpeng);
+    // } catch (e) {
+    //   print("Error $e");
+    //   return null;
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,6 +239,8 @@ class ReadDataProgramStudiPage extends StatelessWidget {
     );
   }
 }
+
+
 
 // import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;

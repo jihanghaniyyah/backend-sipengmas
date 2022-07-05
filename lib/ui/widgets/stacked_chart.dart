@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert' as convert;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class StackedChart extends StatefulWidget {
@@ -11,6 +14,21 @@ class StackedChart extends StatefulWidget {
 class _StackedChartState extends State<StackedChart> {
   late List<DataPengmas> _chartData;
   late TooltipBehavior _tooltipBehavior;
+
+  Future viewJumlahDataProdi()  async {
+    var url = Uri.https(
+        'project.mis.pens.ac.id',
+        '/mis116/sipengmas/p3m/barstatistik.php/',
+        {'function': 'showJumlahProdi'});
+    var response = await http.get(url);
+    var jsonData = convert.jsonDecode(response.body);
+    print(jsonData['data']);
+    if (response.statusCode == 200) {
+      return jsonData['data'];
+    } else {
+      print('Null');
+    }
+  }
 
   @override
   void initState() {
@@ -36,29 +54,22 @@ class _StackedChartState extends State<StackedChart> {
                     StackedColumnSeries<DataPengmas, String>(
                       dataSource: _chartData,
                       xValueMapper: (DataPengmas exp, _) => exp.expenseCategory,
-                      yValueMapper: (DataPengmas exp, _) => exp.dtik,
-                      name: 'DTIK',
+                      yValueMapper: (DataPengmas exp, _) => exp.prodi,
+                      name: 'Prodi',
                       markerSettings: MarkerSettings(isVisible: true),
                     ),
                     StackedColumnSeries<DataPengmas, String>(
                       dataSource: _chartData,
                       xValueMapper: (DataPengmas exp, _) => exp.expenseCategory,
-                      yValueMapper: (DataPengmas exp, _) => exp.dte,
-                      name: 'DTE',
+                      yValueMapper: (DataPengmas exp, _) => exp.rc,
+                      name: 'RC',
                       markerSettings: MarkerSettings(isVisible: true),
                     ),
                     StackedColumnSeries<DataPengmas, String>(
                       dataSource: _chartData,
                       xValueMapper: (DataPengmas exp, _) => exp.expenseCategory,
-                      yValueMapper: (DataPengmas exp, _) => exp.dtme,
-                      name: 'DTME',
-                      markerSettings: MarkerSettings(isVisible: true),
-                    ),
-                    StackedColumnSeries<DataPengmas, String>(
-                      dataSource: _chartData,
-                      xValueMapper: (DataPengmas exp, _) => exp.expenseCategory,
-                      yValueMapper: (DataPengmas exp, _) => exp.dtmk,
-                      name: 'DTMK',
+                      yValueMapper: (DataPengmas exp, _) => exp.rg,
+                      name: 'RG',
                       markerSettings: MarkerSettings(isVisible: true),
                     ),
                   ],
@@ -74,20 +85,18 @@ class _StackedChartState extends State<StackedChart> {
 
   List<DataPengmas> getChartData() {
     final List<DataPengmas> chartData = [
-      DataPengmas('2019', 55, 40, 45, 28),
-      DataPengmas('2020', 33, 45, 54, 28),
-      DataPengmas('2021', 43, 24, 20, 34),
-      DataPengmas('2022', 32, 54, 23, 54),
+      DataPengmas('Prodi', 55, 0, 0),
+      DataPengmas('RC', 0, 45, 0),
+      DataPengmas('RG', 0, 0, 20),
     ];
     return chartData;
   }
 }
 
 class DataPengmas {
-  DataPengmas(this.expenseCategory, this.dtik, this.dte, this.dtme, this.dtmk);
+  DataPengmas(this.expenseCategory, this.prodi, this.rc, this.rg);
   final String expenseCategory;
-  final num dtik;
-  final num dte;
-  final num dtme;
-  final num dtmk;
+  final num prodi;
+  final num rc;
+  final num rg;
 }

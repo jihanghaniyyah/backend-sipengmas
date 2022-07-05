@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pengabdianmasyarakat/ui/pages/dashboard_page.dart';
+import 'package:pengabdianmasyarakat/ui/pages/data_penawaranjudul.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_programstudidetail.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchgroup.dart';
@@ -106,6 +107,34 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ResearchGroupPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+          ExpansionTile(
+            onExpansionChanged: (bool isExpanded) {
+              setState(() => _customTileisExpanded = isExpanded);
+            },
+            title: Text(
+              "Penawaran Judul",
+            ),
+            trailing: Icon(
+              _customTileisExpanded
+                  ? Icons.arrow_drop_down_circle
+                  : Icons.arrow_drop_down,
+            ),
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  'Daftar Penawaran',
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PenawaranJudulPage(),
                     ),
                   );
                 },
