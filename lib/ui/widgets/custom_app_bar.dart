@@ -32,34 +32,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       actions: [
-        // Padding(
-        //   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-        //   child: InkWell(
-        //     onTap: () {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => PemberitahuanPage(),
-        //         ),
-        //       );
-        //     },
-        //     child: Icon(
-        //       Icons.notifications,
-        //       color: Colors.white,
-        //       size: 24,
-        //     ),
-        //   ),
-        // ),
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
           child: InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                ),
-              );
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Log Out'),
+                        content: const Text('Apakah Anda yakin keluar?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Batal'),
+                            child: const Text('Batal'),
+                          ),
+                          TextButton(
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage())),
+                              child: const Text('Logout'))
+                        ],
+                      ));
             },
             child: Icon(
               Icons.logout,
@@ -125,39 +119,38 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 //     );
 //   }
 // }
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: CustomAppBar(child: child),
-  //     backgroundColor: Color(0xFF210F7A),
-  //     leading: IconButton(
-  //       icon: Icon(
-  //         Icons.menu,
-  //         color: Colors.white,
-  //       ),
-  //       onPressed: () {},
-  //     ),
-  //     actions: [
-  //       Padding(
-  //         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-  //         child: InkWell(
-  //           onTap: () {},
-  //           child: Icon(
-  //             Icons.notifications,
-  //             color: Colors.white,
-  //             size: 24,
-  //           ),
-  //         ),
-  //       ),
-  //       Padding(
-  //         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
-  //         child: Icon(
-  //           Icons.person,
-  //           color: Colors.white,
-  //           size: 24,
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
+// @override
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//     appBar: CustomAppBar(child: child),
+//     backgroundColor: Color(0xFF210F7A),
+//     leading: IconButton(
+//       icon: Icon(
+//         Icons.menu,
+//         color: Colors.white,
+//       ),
+//       onPressed: () {},
+//     ),
+//     actions: [
+//       Padding(
+//         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+//         child: InkWell(
+//           onTap: () {},
+//           child: Icon(
+//             Icons.notifications,
+//             color: Colors.white,
+//             size: 24,
+//           ),
+//         ),
+//       ),
+//       Padding(
+//         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+//         child: Icon(
+//           Icons.person,
+//           color: Colors.white,
+//           size: 24,
+//         ),
+//       ),
+//     ],
+//   );
+// }

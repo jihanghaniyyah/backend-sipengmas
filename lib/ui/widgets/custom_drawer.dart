@@ -4,6 +4,7 @@ import 'package:pengabdianmasyarakat/ui/pages/data_penawaranjudul.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_programstudidetail.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchgroup.dart';
+import 'package:pengabdianmasyarakat/ui/pages/data_pengmasuser.dart';
 import 'package:pengabdianmasyarakat/ui/pages/read_data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/shared/theme.dart';
 
@@ -21,128 +22,153 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            child: Image.asset(
-              'assets/images/SIPENGMAS.png',
-              width: 240,
-              height: 60,
-              fit: BoxFit.fitWidth,
-            ),
+      child: ListView(padding: EdgeInsets.zero, children: [
+        DrawerHeader(
+          child: Image.asset(
+            'assets/images/SIPENGMAS.png',
+            width: 240,
+            height: 60,
+            fit: BoxFit.fitWidth,
           ),
-          ExpansionTile(
-            onExpansionChanged: (bool expanded) {
-              setState(() => _customTileExpanded = expanded);
-            },
-            title: const Text('Dashboard'),
-            // subtitle: const Text('Custom expansion arrow icon'),
-            trailing: Icon(
-              _customTileExpanded
-                  ? Icons.arrow_drop_down_circle
-                  : Icons.arrow_drop_down,
-            ),
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'Statistik Pengmas',
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DashboardPage(),
-                    ),
-                  );
-                },
-              ),
-            ],
+        ),
+        ExpansionTile(
+          onExpansionChanged: (bool expanded) {
+            setState(() => _customTileExpanded = expanded);
+          },
+          title: const Text('Dashboard'),
+          // subtitle: const Text('Custom expansion arrow icon'),
+          trailing: Icon(
+            _customTileExpanded
+                ? Icons.arrow_drop_down_circle
+                : Icons.arrow_drop_down,
           ),
-          ExpansionTile(
-            onExpansionChanged: (bool isExpanded) {
-              setState(() => _customTileisExpanded = isExpanded);
-            },
-            title: Text(
-              "Data Pengmas",
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                'Statistik Pengmas',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DashboardPage(),
+                  ),
+                );
+              },
             ),
-            trailing: Icon(
-              _customTileisExpanded
-                  ? Icons.arrow_drop_down_circle
-                  : Icons.arrow_drop_down,
-            ),
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'Program Studi',
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProgramStudiDetailPage(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text(
-                  'Research Center',
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResearchCenterPage(),
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                title: Text(
-                  'Research Group',
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ResearchGroupPage(),
-                    ),
-                  );
-                },
-              ),
-            ],
+          ],
+        ),
+        ExpansionTile(
+          onExpansionChanged: (bool isExpanded) {
+            setState(() => _customTileisExpanded = isExpanded);
+          },
+          title: Text(
+            "Data Pengmas",
           ),
-          ExpansionTile(
-            onExpansionChanged: (bool isExpanded) {
-              setState(() => _customTileisExpanded = isExpanded);
-            },
-            title: Text(
-              "Penawaran Judul",
-            ),
-            trailing: Icon(
-              _customTileisExpanded
-                  ? Icons.arrow_drop_down_circle
-                  : Icons.arrow_drop_down,
-            ),
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'Daftar Penawaran',
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PenawaranJudulPage(),
-                    ),
-                  );
-                },
-              ),
-            ],
+          trailing: Icon(
+            _customTileisExpanded
+                ? Icons.arrow_drop_down_circle
+                : Icons.arrow_drop_down,
           ),
-        ],
-      ),
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                'Program Studi',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProgramStudiDetailPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Research Center',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResearchCenterPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Research Group',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResearchGroupPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        ExpansionTile(
+          onExpansionChanged: (bool isExpanded) {
+            setState(() => _customTileisExpanded = isExpanded);
+          },
+          title: Text(
+            "Penawaran Judul",
+          ),
+          trailing: Icon(
+            _customTileisExpanded
+                ? Icons.arrow_drop_down_circle
+                : Icons.arrow_drop_down,
+          ),
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                'Daftar Penawaran',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PenawaranJudulPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        ExpansionTile(
+          onExpansionChanged: (bool isExpanded) {
+            setState(() => _customTileisExpanded = isExpanded);
+          },
+          title: Text(
+            "Data Saya",
+          ),
+          trailing: Icon(
+            _customTileisExpanded
+                ? Icons.arrow_drop_down_circle
+                : Icons.arrow_drop_down,
+          ),
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                'Data Pengmas',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PengmasUserPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }

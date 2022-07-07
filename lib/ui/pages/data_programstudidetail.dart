@@ -69,7 +69,7 @@ class _ProgramStudiDetailPageState extends State<ProgramStudiDetailPage> {
                     padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Container(
                       width: double.infinity,
-                      height: 885,
+                      constraints: const BoxConstraints(maxHeight: double.infinity),
                       decoration: BoxDecoration(
                         color: Color(0xFFF7F7F7),
                       ),

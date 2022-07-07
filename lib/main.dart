@@ -4,16 +4,13 @@ import 'package:pengabdianmasyarakat/ui/pages/data_programstudidetail.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchgroup.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_penawaranjudul.dart';
+import 'package:pengabdianmasyarakat/ui/pages/data_pengmasuser.dart';
 import 'package:pengabdianmasyarakat/ui/pages/login_page.dart';
-import 'package:pengabdianmasyarakat/ui/pages/pemberitahuan_page.dart';
-import 'package:pengabdianmasyarakat/ui/pages/read_data_programstudipage.dart';
 import 'package:pengabdianmasyarakat/ui/pages/read_data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/pages/read_data_researchgroup.dart';
 import 'package:pengabdianmasyarakat/ui/pages/read_data_penawaranjudul.dart';
 import 'package:pengabdianmasyarakat/ui/pages/register_page.dart';
 import 'package:pengabdianmasyarakat/ui/pages/splash_page.dart';
-import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
-import 'package:pengabdianmasyarakat/ui/widgets/stacked_chart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,11 +33,11 @@ class MyApp extends StatelessWidget {
         '/d-rc': (context) => ResearchCenterPage(),
         '/d-rg': (context) => ResearchGroupPage(),
         '/d-pj': (context) => PenawaranJudulPage(),
+        '/d-du': (context) => PengmasUserPage(),
         // '/rd-progstud': (context) => ReadDataProgramStudiPage(),
         '/rd-rc': (context) => ReadDataResearchCenterPage(),
         '/rd-rg': (context) => ReadDataResearchGroupPage(),
         '/rd-pj': (context) => ReadDataPenawaranJudulPage(),
-        '/pemberitahuan': (context) => PemberitahuanPage(),
       },
     );
   }

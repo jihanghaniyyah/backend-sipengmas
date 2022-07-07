@@ -3,12 +3,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:pengabdianmasyarakat/shared/theme.dart';
-import 'package:pengabdianmasyarakat/ui/pages/read_data_programstudipage.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_app_bar.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_card.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/stacked_chart.dart';
-import 'package:pengabdianmasyarakat/ui/widgets/line_chart.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -30,7 +28,22 @@ class _DashboardPageState extends State<DashboardPage> {
 
     if (response.statusCode == 200) {
       var jsonData = convert.jsonDecode(response.body);
-      return jsonData['data'];
+      return jsonData[0];
+    } else {
+      print('Gagal');
+    }
+  }
+
+  Future viewTotalPusatRiset() async {
+    var url = Uri.https(
+        'project.mis.pens.ac.id',
+        '/mis116/sipengmas/p3m/totaldata.php/',
+        {'function': 'showTotalDataPusatRiset'});
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      var jsonData = convert.jsonDecode(response.body);
+      return jsonData[0];
     } else {
       print('Gagal');
     }
@@ -133,54 +146,70 @@ class _DashboardPageState extends State<DashboardPage> {
                                 ],
                               );
                             }
-                          })
+                          }),
                     ],
                   ),
                 ),
-                // Container(
-                //   width: 166,
-                //   height: 64,
-                //   decoration: BoxDecoration(
-                //     color: Color(0xFFEEEEEE),
-                //     borderRadius: BorderRadius.circular(5),
-                //   ),
-                //   child: Row(
-                //     mainAxisSize: MainAxisSize.max,
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       Image.asset(
-                //         'assets/images/uploadeddata.png',
-                //         width: 52,
-                //         height: 52,
-                //         fit: BoxFit.fitHeight,
-                //       ),
-                //       Column(
-                //         mainAxisSize: MainAxisSize.max,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             'Upload',
-                //             style: TextStyle(
-                //               fontFamily: 'Poppins',
-                //               color: Color(0xFF999999),
-                //               fontWeight: FontWeight.normal,
-                //             ),
-                //           ),
-                //           Text(
-                //             '500',
-                //             style: TextStyle(
-                //               fontFamily: 'Poppins',
-                //               color: Color(0xFF34395E),
-                //               fontSize: 16,
-                //               fontWeight: FontWeight.w500,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                Container(
+                  width: 166,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFEEEEEE),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        'assets/images/uploadeddata.png',
+                        width: 52,
+                        height: 52,
+                        fit: BoxFit.fitHeight,
+                      ),
+                      FutureBuilder<dynamic>(
+                          future: viewTotalPusatRiset(),
+                          builder: (context, snapshot) {
+                            if (snapshot.error != null) {
+                              return Text(
+                                "${snapshot.error}",
+                                style: const TextStyle(fontSize: 20),
+                              );
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: const CircularProgressIndicator());
+                            } else {
+                              return Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Pusat Riset',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF999999),
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${snapshot.data["JUMLAH"]}',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF34395E),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                          }),
+                    ],
+                  ),
+                ),
               ],
             ),
             Padding(
@@ -230,7 +259,7 @@ class _DashboardPageState extends State<DashboardPage> {
               padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
               child: Container(
                 width: double.infinity,
-                height: 885,
+                constraints: const BoxConstraints(maxHeight: double.infinity),
                 decoration: BoxDecoration(
                   color: Color(0xFFF7F7F7),
                 ),

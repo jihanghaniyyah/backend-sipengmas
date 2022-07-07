@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert' as convert;
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:pengabdianmasyarakat/shared/theme.dart';
 import 'package:pengabdianmasyarakat/ui/pages/dashboard_page.dart';
-import 'package:pengabdianmasyarakat/ui/pages/register_page.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_button_1.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_text_form_field.dart';
 
@@ -32,11 +32,15 @@ class _LoginPageState extends State<LoginPage> {
           "Accept": "application/json",
         });
     var dataUser = convert.jsonDecode(hasil.body);
-    // print(dataUser);
     if (hasil.statusCode == 200) {
       if (dataUser['status'] == 'Dosen') {
-        var dataUser = convert.jsonDecode(hasil.body);
-        print(dataUser);
+
+        var tempNip = dataUser['data']["NIP"] ?? '198203082008121001';
+        var tempNomor = dataUser['data']["NOMOR"] ?? '424';
+
+        await SessionManager().set('nip', tempNip);
+        await SessionManager().set('nomor', tempNomor);
+
         Navigator.push(
             context, MaterialPageRoute(builder: (_) => const DashboardPage()));
         print("Login Berhasil");
