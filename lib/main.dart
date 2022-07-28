@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pengabdianmasyarakat/ui/pages/dashboard_page.dart';
+import 'package:pengabdianmasyarakat/ui/pages/data_mandiri.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_programstudidetail.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchcenter.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchgroup.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/d-progstud': (context) => ProgramStudiDetailPage(),
         '/d-rc': (context) => ResearchCenterPage(),
         '/d-rg': (context) => ResearchGroupPage(),
+        '/d-md' :(context) => MandiriPage(),
         '/d-pj': (context) => PenawaranJudulPage(),
         '/d-du': (context) => PengmasUserPage(),
         // '/rd-progstud': (context) => ReadDataProgramStudiPage(),

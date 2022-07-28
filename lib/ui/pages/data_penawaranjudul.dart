@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:pengabdianmasyarakat/shared/theme.dart';
-import 'package:pengabdianmasyarakat/ui/pages/read_data_penawaranjudul.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_app_bar.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_card.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
@@ -20,10 +19,8 @@ class _PenawaranJudulPageState extends State<PenawaranJudulPage> {
   TextEditingController searchController = TextEditingController();
 
   Future viewDataPenawaranJudul() async {
-    var url = Uri.https(
-        'project.mis.pens.ac.id',
-        '/mis116/sipengmas/p3m/penawaranjudul.php/',
-        {'function': 'showJudul'});
+    var url = Uri.https('project.mis.pens.ac.id',
+        '/mis116/sipengmas/api/penawaranjudul.php/', {'function': 'showJudul'});
     var response = await http.get(url);
     var jsonData = convert.jsonDecode(response.body);
     print(jsonData['data']);
@@ -114,32 +111,25 @@ class _PenawaranJudulPageState extends State<PenawaranJudulPage> {
                                 return Container(
                                   child: ListView.builder(
                                     physics:
-                                    const AlwaysScrollableScrollPhysics(),
+                                        const AlwaysScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (BuildContext context, index) {
-                                      return snapshot.data[index]["JUDUL_PENAWARAN"]
-                                          .contains(searchString)
+                                      return snapshot.data[index]
+                                                  ["JUDUL_PENAWARAN"]
+                                              .contains(searchString)
                                           ? CustomBar(
-                                          event:
-                                          '${snapshot.data[index]["JUDUL_PENAWARAN"]}',
-                                          name:
-                                          '${snapshot.data[index]["KATEGORI"]}',
-                                          major:
-                                          '${snapshot.data[index]["KETENTUAN"]}',
-                                          pusatriset:
-                                          '${snapshot.data[index]["STATUS"]}',
-                                          // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ReadDataPenawaranJudulPage(),
-                                              ),
-                                            );
-                                          })
+                                              event:
+                                                  '${snapshot.data[index]["JUDUL_PENAWARAN"]}',
+                                              name:
+                                                  '${snapshot.data[index]["KATEGORI"]}',
+                                              major:
+                                                  '${snapshot.data[index]["KETENTUAN"]}',
+                                              pusatriset:
+                                                  '${snapshot.data[index]["STATUS"]}',
+                                              // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
+                                              onPressed: () {})
                                           : Container();
                                     },
                                   ),

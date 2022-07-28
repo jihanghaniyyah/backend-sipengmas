@@ -22,7 +22,7 @@ class _ResearchGroupPageState extends State<ResearchGroupPage> {
   Future viewDataPengmas() async {
     var url = Uri.https(
         'project.mis.pens.ac.id',
-        '/mis116/sipengmas/p3m/datapengmas.php/',
+        '/mis116/sipengmas/api/datapengmas.php/',
         {'function': 'showDataPengmasbyRG'});
     var response = await http.get(url);
     var jsonData = convert.jsonDecode(response.body);
@@ -69,7 +69,8 @@ class _ResearchGroupPageState extends State<ResearchGroupPage> {
                     padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Container(
                       width: double.infinity,
-                      constraints: const BoxConstraints(maxHeight: double.infinity),
+                      constraints:
+                          const BoxConstraints(maxHeight: double.infinity),
                       decoration: BoxDecoration(
                         color: Color(0xFFF7F7F7),
                       ),
@@ -131,15 +132,7 @@ class _ResearchGroupPageState extends State<ResearchGroupPage> {
                                               pusatriset:
                                                   '${snapshot.data[index]["NAMA"]}',
                                               // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ReadDataProgramStudiPage(),
-                                                  ),
-                                                );
-                                              })
+                                              onPressed: () {})
                                           : Container();
                                     },
                                   ),
@@ -151,17 +144,6 @@ class _ResearchGroupPageState extends State<ResearchGroupPage> {
                       ),
                     ),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                  //   child: Text(
-                  //     'Showing 1 to 10 of 6 entries',
-                  //     style: TextStyle(
-                  //       fontFamily: 'Poppins',
-                  //       fontSize: 12,
-                  //       fontWeight: FontWeight.w500,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

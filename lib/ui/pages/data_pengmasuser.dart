@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:pengabdianmasyarakat/shared/theme.dart';
-import 'package:pengabdianmasyarakat/ui/pages/read_data_penawaranjudul.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_app_bar.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_card.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
@@ -25,15 +24,15 @@ class _PengmasUserPageState extends State<PengmasUserPage> {
 
     var url = Uri.https(
         'project.mis.pens.ac.id',
-        '/mis116/sipengmas/p3m/datapengmasuser.php/',
+        '/mis116/sipengmas/api/datapengmasuser.php/',
         {'function': 'showDataPengmasbyUser', 'nomor': nomor.toString()});
 
     var response = await http.get(url);
     var jsonData = convert.jsonDecode(response.body);
     if (response.statusCode == 200) {
-      if (jsonData['data'] == null){
+      if (jsonData['data'] == null) {
         return [];
-      } else{
+      } else {
         return jsonData["data"];
       }
     } else {
@@ -76,7 +75,8 @@ class _PengmasUserPageState extends State<PengmasUserPage> {
                     padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Container(
                       width: double.infinity,
-                      constraints: const BoxConstraints(maxHeight: double.infinity),
+                      constraints:
+                          const BoxConstraints(maxHeight: double.infinity),
                       decoration: BoxDecoration(
                         color: Color(0xFFF7F7F7),
                       ),
@@ -119,44 +119,34 @@ class _PengmasUserPageState extends State<PengmasUserPage> {
                                     child: const CircularProgressIndicator());
                               } else {
                                 return Container(
-                                  constraints: const BoxConstraints(maxHeight: double.infinity),
+                                  constraints: const BoxConstraints(
+                                      maxHeight: double.infinity),
                                   child: ListView.builder(
                                     physics:
-                                    const AlwaysScrollableScrollPhysics(),
+                                        const AlwaysScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (BuildContext context, index) {
-
                                       var isDataEmpty = snapshot.data == null;
 
                                       if (isDataEmpty) {
                                         return Container();
                                       } else {
                                         return snapshot.data[index]["JUDUL"]
-                                            .contains(searchString)
+                                                .contains(searchString)
                                             ? CustomBar(
-                                            event:
-                                            '${snapshot.data[index]["JUDUL"]}',
-                                            name:
-                                            '${snapshot.data[index]["KATEGORI"]}',
-                                            major:
-                                            '${snapshot.data[index]["NAMA"]}',
-                                            pusatriset:
-                                            '${snapshot.data[index]["NAMA_PEGAWAI"]}',
-                                            // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ReadDataPenawaranJudulPage(),
-                                                ),
-                                              );
-                                            })
+                                                event:
+                                                    '${snapshot.data[index]["JUDUL"]}',
+                                                name:
+                                                    '${snapshot.data[index]["KATEGORI"]}',
+                                                major:
+                                                    '${snapshot.data[index]["NAMA"]}',
+                                                pusatriset:
+                                                    '${snapshot.data[index]["NAMA_PEGAWAI"]}',
+                                                onPressed: () {})
                                             : Container();
                                       }
-
                                     },
                                   ),
                                 );
@@ -167,17 +157,6 @@ class _PengmasUserPageState extends State<PengmasUserPage> {
                       ),
                     ),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                  //   child: Text(
-                  //     'Showing 1 to 10 of 6 entries',
-                  //     style: TextStyle(
-                  //       fontFamily: 'Poppins',
-                  //       fontSize: 12,
-                  //       fontWeight: FontWeight.w500,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pengabdianmasyarakat/ui/pages/dashboard_page.dart';
+import 'package:pengabdianmasyarakat/ui/pages/data_mandiri.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_penawaranjudul.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_programstudidetail.dart';
 import 'package:pengabdianmasyarakat/ui/pages/data_researchcenter.dart';
@@ -45,7 +46,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           children: <Widget>[
             ListTile(
               title: Text(
-                'Statistik Pengmas',
+                'Data Pengmas',
               ),
               onTap: () {
                 Navigator.push(
@@ -63,7 +64,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             setState(() => _customTileisExpanded = isExpanded);
           },
           title: Text(
-            "Data Pengmas",
+            "Data",
           ),
           trailing: Icon(
             _customTileisExpanded
@@ -106,6 +107,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ResearchGroupPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Mandiri',
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MandiriPage(),
                   ),
                 );
               },

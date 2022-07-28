@@ -22,7 +22,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Future viewTotalData() async {
     var url = Uri.https(
         'project.mis.pens.ac.id',
-        '/mis116/sipengmas/p3m/totaldata.php/',
+        '/mis116/sipengmas/api/totaldata.php/',
         {'function': 'showTotalDataPengmas'});
     var response = await http.get(url);
 
@@ -37,7 +37,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Future viewTotalPusatRiset() async {
     var url = Uri.https(
         'project.mis.pens.ac.id',
-        '/mis116/sipengmas/p3m/totaldata.php/',
+        '/mis116/sipengmas/api/totaldata.php/',
         {'function': 'showTotalDataPusatRiset'});
     var response = await http.get(url);
 
@@ -52,7 +52,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Future viewDataPengmas() async {
     var url = Uri.https(
         'project.mis.pens.ac.id',
-        '/mis116/sipengmas/p3m/datapengmas.php/',
+        '/mis116/sipengmas/api/datapengmas.php/',
         {'function': 'showDataPengmas'});
     var response = await http.get(url);
     var jsonData = convert.jsonDecode(response.body);
@@ -77,7 +77,7 @@ class _DashboardPageState extends State<DashboardPage> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
               child: Text(
-                'Statistik Pengabdian Masyarakat',
+                'Data Pengabdian Masyarakat',
                 textAlign: TextAlign.start,
                 style: purpleTextStyle.copyWith(
                   fontFamily: 'Poppins',
@@ -213,47 +213,7 @@ class _DashboardPageState extends State<DashboardPage> {
               ],
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20, 13, 20, 0),
-              child: Container(
-                width: double.infinity,
-                height: 420,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF3F3F3),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(22, 0, 10, 0),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: StackedChart(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
               padding: EdgeInsetsDirectional.fromSTEB(13, 20, 0, 13),
-              child: Text(
-                'Data Pengabdian Masyarakat',
-                style: purpleTextStyle.copyWith(
-                  fontFamily: 'Poppins',
-                  fontWeight: semibold,
-                  fontSize: 24,
-                ),
-              ),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
@@ -320,15 +280,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                         pusatriset:
                                             '${snapshot.data[index]["NAMA"]}',
                                         // date: '${snapshot.data[index]["TAHUN_PELAKSANAAN"]}',
-                                        onPressed: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) =>
-                                          //         ReadDataProgramStudiPage(),
-                                          //   ),
-                                          // );
-                                        })
+                                        onPressed: () {})
                                     : Container();
                               },
                             ),

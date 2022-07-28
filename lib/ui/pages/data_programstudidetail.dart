@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:pengabdianmasyarakat/shared/theme.dart';
-import 'package:pengabdianmasyarakat/ui/pages/read_data_programstudipage.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_app_bar.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_card.dart';
 import 'package:pengabdianmasyarakat/ui/widgets/custom_drawer.dart';
@@ -22,7 +21,7 @@ class _ProgramStudiDetailPageState extends State<ProgramStudiDetailPage> {
   Future viewDataPengmas() async {
     var url = Uri.https(
         'project.mis.pens.ac.id',
-        '/mis116/sipengmas/p3m/datapengmas.php/',
+        '/mis116/sipengmas/api/datapengmas.php/',
         {'function': 'showDataPengmasbyProdi'});
     var response = await http.get(url);
     var jsonData = convert.jsonDecode(response.body);
@@ -69,7 +68,8 @@ class _ProgramStudiDetailPageState extends State<ProgramStudiDetailPage> {
                     padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Container(
                       width: double.infinity,
-                      constraints: const BoxConstraints(maxHeight: double.infinity),
+                      constraints:
+                          const BoxConstraints(maxHeight: double.infinity),
                       decoration: BoxDecoration(
                         color: Color(0xFFF7F7F7),
                       ),
@@ -113,33 +113,25 @@ class _ProgramStudiDetailPageState extends State<ProgramStudiDetailPage> {
                               } else {
                                 return Container(
                                   child: ListView.builder(
-                                    physics: const AlwaysScrollableScrollPhysics(),
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
                                     scrollDirection: Axis.vertical,
                                     shrinkWrap: true,
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (BuildContext context, index) {
                                       return snapshot.data[index]["JUDUL"]
-                                          .contains(searchString)
-                                          ?
-                                      CustomBar(
-                                          event: '${snapshot
-                                              .data[index]["JUDUL"]}',
-                                          name:
-                                          '${snapshot
-                                              .data[index]["NAMA_PEGAWAI"]}',
-                                          major:
-                                          '${snapshot.data[index]["KATEGORI"]}',
-                                          pusatriset:
-                                          '${snapshot.data[index]["NAMA"]}',
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ReadDataProgramStudiPage(),
-                                              ),
-                                            );
-                                          }) : Container();
+                                              .contains(searchString)
+                                          ? CustomBar(
+                                              event:
+                                                  '${snapshot.data[index]["JUDUL"]}',
+                                              name:
+                                                  '${snapshot.data[index]["NAMA_PEGAWAI"]}',
+                                              major:
+                                                  '${snapshot.data[index]["KATEGORI"]}',
+                                              pusatriset:
+                                                  '${snapshot.data[index]["NAMA"]}',
+                                              onPressed: () {})
+                                          : Container();
                                     },
                                   ),
                                 );
@@ -147,17 +139,6 @@ class _ProgramStudiDetailPageState extends State<ProgramStudiDetailPage> {
                             },
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                    child: Text(
-                      'Showing 1 to 10 of 6 entries',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -170,4 +151,3 @@ class _ProgramStudiDetailPageState extends State<ProgramStudiDetailPage> {
     );
   }
 }
-
